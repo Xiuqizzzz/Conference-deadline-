@@ -112,6 +112,40 @@ function formatInTimezone(dateValue, timezoneMode, conferenceTimezone) {
   }).format(dateValue);
 }
 
+function formatEventDates(event) {
+  if (!event) {
+    return "Event dates TBA";
+  }
+
+  const { startDate, endDate } = event;
+  if (!startDate && !endDate) {
+    return "Event dates TBA";
+  }
+
+  const start = startDate ? new Date(`${startDate}T12:00:00Z`) : null;
+  const end = endDate ? new Date(`${endDate}T12:00:00Z`) : null;
+
+  const monthDay = (d) =>
+    new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      timeZone: "Etc/UTC",
+    }).format(d);
+
+  const year = (d) =>
+    new Intl.DateTimeFormat("en-US", { year: "numeric", timeZone: "Etc/UTC" }).format(d);
+
+  if (start && end) {
+    if (year(start) === year(end)) {
+      return `${monthDay(start)} – ${monthDay(end)}, ${year(end)}`;
+    }
+    return `${monthDay(start)}, ${year(start)} – ${monthDay(end)}, ${year(end)}`;
+  }
+
+  const only = start || end;
+  return `${monthDay(only)}, ${year(only)}`;
+}
+
 function toICSUrl(row) {
   if (!row.deadlineDate) {
     return "#";
@@ -126,17 +160,17 @@ function toICSUrl(row) {
 
   const startUtc = toUtcString(date);
   const endUtc = toUtcString(new Date(date.getTime() + 60 * 60 * 1000));
-  const safeTitle = `${row.conference.name} - ${row.track}`;
+  const safeTitle = `${row.conference.name} ${row.forEdition} - ${row.deadlineType}`;
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "BEGIN:VEVENT",
-    `UID:${row.conference.id}-${row.track.replaceAll(" ", "-")}@conference-tracker`,
+    `UID:${row.conference.id}-${row.forEdition.replaceAll(" ", "-")}-${row.deadlineType.replaceAll(" ", "-")}@conference-tracker`,
     `DTSTAMP:${toUtcString(new Date())}`,
     `DTSTART:${startUtc}`,
     `DTEND:${endUtc}`,
     `SUMMARY:${safeTitle}`,
-    `DESCRIPTION:Submission deadline for ${safeTitle}`,
+    `DESCRIPTION:${row.deadlineType} deadline for ${row.conference.name} ${row.forEdition}`,
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\n");
@@ -159,8 +193,9 @@ function render() {
         row.conference.name,
         row.conference.fullName || "",
         row.conference.description || "",
-        row.conference.location || "",
-        row.track,
+        row.conference.upcomingEvent ? row.conference.upcomingEvent.location || "" : "",
+        row.forEdition || "",
+        row.deadlineType || "",
         row.categories.join(" "),
       ]
         .join(" ")
@@ -192,7 +227,7 @@ function render() {
 
   const nextUpcoming = filteredRows.find((row) => row.status === "upcoming" || row.status === "today");
   const nextText = nextUpcoming
-    ? `Next deadline: ${nextUpcoming.conference.name} (${nextUpcoming.track})`
+    ? `Next deadline: ${nextUpcoming.conference.name} (${nextUpcoming.forEdition}, ${nextUpcoming.deadlineType})`
     : "No upcoming deadlines in current view.";
   ui.meta.textContent = `${filteredRows.length} submission deadlines shown. ${nextText}`;
 
@@ -203,10 +238,25 @@ function render() {
 
     rowEl.querySelector(".conf-name").textContent = row.conference.name;
     rowEl.querySelector(".full-name").textContent = row.conference.fullName || "";
-    rowEl.querySelector(".track-name").textContent = row.track;
     rowEl.querySelector(".description").textContent = row.conference.description || "";
-    rowEl.querySelector(".location-text").textContent =
-      row.conference.location || "Location TBA";
+
+    const event = row.conference.upcomingEvent;
+    const eventBlock = rowEl.querySelector(".event-block");
+    if (event) {
+      rowEl.querySelector(".event-edition").textContent = event.name || "";
+      rowEl.querySelector(".event-dates").textContent = formatEventDates(event);
+      rowEl.querySelector(".event-location").textContent = event.location
+        ? `• 📍 ${event.location}`
+        : "• 📍 Location TBA";
+      const flag = rowEl.querySelector(".event-confirmed-flag");
+      if (event.confirmed) {
+        flag.remove();
+      } else {
+        flag.textContent = "tentative";
+      }
+    } else {
+      eventBlock.remove();
+    }
 
     const categoriesEl = rowEl.querySelector(".categories");
     categoriesEl.innerHTML = "";
@@ -217,12 +267,20 @@ function render() {
       categoriesEl.appendChild(chip);
     }
 
+    rowEl.querySelector(".deadline-label").textContent =
+      `${row.deadlineType} — ${row.forEdition || "TBA"}`;
     rowEl.querySelector(".deadline-time").textContent = formatInTimezone(
       row.deadlineDate,
       state.timezoneMode,
       row.timezone
     );
     rowEl.querySelector(".countdown").textContent = countdownText(row.deadlineDate);
+
+    const noteEl = rowEl.querySelector(".deadline-note");
+    const notes = [];
+    if (row.estimated) notes.push("Estimated date");
+    if (row.note) notes.push(row.note);
+    noteEl.textContent = notes.join(" · ");
 
     const statusBadge = rowEl.querySelector(".status-badge");
     statusBadge.classList.add(row.status);
@@ -242,7 +300,10 @@ function render() {
       calendarLink.style.pointerEvents = "none";
       calendarLink.style.opacity = "0.5";
     } else {
-      calendarLink.setAttribute("download", `${row.conference.id}-${row.track}.ics`);
+      calendarLink.setAttribute(
+        "download",
+        `${row.conference.id}-${row.forEdition}-${row.deadlineType}.ics`
+      );
     }
 
     fragment.appendChild(rowEl);
@@ -318,9 +379,12 @@ async function init() {
       rows.push({
         conference,
         categories,
-        track: submission.track,
+        deadlineType: submission.deadlineType || "Paper submission",
+        forEdition: submission.forEdition || "",
         timezone: submission.timezone,
         deadlineDate,
+        estimated: !!submission.estimated,
+        note: submission.note || "",
         status: dateStatus(deadlineDate),
       });
     }
