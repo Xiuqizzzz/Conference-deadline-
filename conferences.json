@@ -1,0 +1,317 @@
+[
+  {
+    "id": "drs",
+    "name": "DRS",
+    "fullName": "Design Research Society International Conference",
+    "description": "Premier venue for design research, methods, practice, and design-led social change. Good fit for reflective design research, methodology, and design theory papers.",
+    "categories": ["Design"],
+    "website": "https://www.designresearchsociety.org/",
+    "upcomingEvent": {
+      "name": "DRS 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA (biennial, rotates internationally)",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Full Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "DRS 2028",
+        "deadline": "2026-10-15T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "meaningxr",
+    "name": "MXR",
+    "fullName": "Meaningful XR Conference",
+    "description": "Focused on meaningful, reflective, and transformative XR experiences. Good fit for work on emotion, value, and human meaning in VR/AR/MR.",
+    "categories": ["XR", "HCI"],
+    "website": "https://www.meaningfulxr.org/",
+    "upcomingEvent": {
+      "name": "MXR 2026",
+      "startDate": "2026-05-30",
+      "endDate": "2026-05-31",
+      "location": "University of Oregon, Portland, OR, USA (hybrid)",
+      "confirmed": true
+    },
+    "submissions": [
+      {
+        "track": "Main Track",
+        "deadlineType": "Paper submission",
+        "forEdition": "MXR 2026",
+        "deadline": null,
+        "timezone": "America/Los_Angeles",
+        "note": "Check the MXR 2026 CFP page for the official paper deadline."
+      }
+    ]
+  },
+  {
+    "id": "cscl",
+    "name": "ISLS/CSCL",
+    "fullName": "International Society of the Learning Sciences / Computer-Supported Collaborative Learning",
+    "description": "Flagship venue for learning sciences and CSCL research. Good fit for empirical studies of learning, collaboration, technology-mediated education, and learning analytics.",
+    "categories": ["Education", "Learning Sciences"],
+    "website": "https://www.isls.org/",
+    "upcomingEvent": {
+      "name": "ISLS 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Research Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "ISLS 2027",
+        "deadline": "2026-09-30T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "aera",
+    "name": "AERA",
+    "fullName": "American Educational Research Association Annual Meeting",
+    "description": "Largest education research conference in the world. Good fit for theoretical, methodological, and empirical education research across K-12, higher ed, and policy.",
+    "categories": ["Education"],
+    "website": "https://www.aera.net/",
+    "upcomingEvent": {
+      "name": "AERA 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA (North America)",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Paper Submissions",
+        "deadlineType": "Paper submission",
+        "forEdition": "AERA 2027",
+        "deadline": "2026-07-31T23:59:00",
+        "timezone": "America/New_York"
+      }
+    ]
+  },
+  {
+    "id": "chi",
+    "name": "CHI",
+    "fullName": "ACM CHI Conference on Human Factors in Computing Systems",
+    "description": "Top-tier HCI venue. Good fit for rigorous empirical, systems, theory, and design papers on human-computer interaction.",
+    "categories": ["HCI"],
+    "website": "https://chi2027.acm.org/",
+    "upcomingEvent": {
+      "name": "CHI 2026",
+      "startDate": "2026-04-13",
+      "endDate": "2026-04-17",
+      "location": "Barcelona, Spain",
+      "confirmed": true
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "CHI 2027",
+        "deadline": "2026-09-12T19:00:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "dis",
+    "name": "DIS",
+    "fullName": "ACM Designing Interactive Systems Conference",
+    "description": "HCI + design venue. Good fit for research-through-design, speculative design, and design-oriented HCI papers.",
+    "categories": ["HCI", "Design"],
+    "website": "https://dis.acm.org/",
+    "upcomingEvent": {
+      "name": "DIS 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "DIS 2026",
+        "deadline": "2026-01-17T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "idc",
+    "name": "IDC",
+    "fullName": "ACM Interaction Design and Children",
+    "description": "Premier venue for child-centered HCI. Good fit for technology, design, and empirical research with children and young people.",
+    "categories": ["HCI", "Education"],
+    "website": "https://idc.acm.org/",
+    "upcomingEvent": {
+      "name": "IDC 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "IDC 2027",
+        "deadline": "2026-12-09T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "aied",
+    "name": "AIED",
+    "fullName": "International Conference on Artificial Intelligence in Education",
+    "description": "Top venue for AI + learning technologies. Good fit for intelligent tutoring systems, LLMs in education, learning analytics, and adaptive learning.",
+    "categories": ["Education", "AI"],
+    "website": "https://aied2026.org/",
+    "upcomingEvent": {
+      "name": "AIED 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Full Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "AIED 2027",
+        "deadline": "2026-10-01T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "las",
+    "name": "Learning@Scale",
+    "fullName": "ACM Conference on Learning @ Scale",
+    "description": "Focused on large-scale learning environments (MOOCs, intelligent tutors, online courses). Good fit for data-driven studies of learning at scale.",
+    "categories": ["Education", "HCI"],
+    "website": "https://learningatscale.acm.org/",
+    "upcomingEvent": {
+      "name": "L@S 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "L@S 2027",
+        "deadline": "2026-11-06T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "ieeevr",
+    "name": "IEEE VR",
+    "fullName": "IEEE Conference on Virtual Reality and 3D User Interfaces",
+    "description": "Top virtual reality venue. Good fit for rigorous VR systems, interaction, perception, rendering, and empirical VR studies.",
+    "categories": ["XR"],
+    "website": "https://ieeevr.org/",
+    "upcomingEvent": {
+      "name": "IEEE VR 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Conference Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "IEEE VR 2027",
+        "deadline": "2026-09-22T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "ismar",
+    "name": "ISMAR",
+    "fullName": "IEEE International Symposium on Mixed and Augmented Reality",
+    "description": "Premier AR/MR venue. Good fit for tracking, displays, rendering, perception, and applications of mixed/augmented reality.",
+    "categories": ["XR"],
+    "website": "https://ismar.org/",
+    "upcomingEvent": {
+      "name": "ISMAR 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "ISMAR 2026",
+        "deadline": "2026-03-22T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "vrst",
+    "name": "VRST",
+    "fullName": "ACM Symposium on Virtual Reality Software and Technology",
+    "description": "VR/AR software and systems venue. Good fit for novel VR/AR techniques, interaction, rendering, and systems papers.",
+    "categories": ["XR", "HCI"],
+    "website": "https://vrst.acm.org/",
+    "upcomingEvent": {
+      "name": "VRST 2026",
+      "startDate": null,
+      "endDate": null,
+      "location": "TBA",
+      "confirmed": false
+    },
+    "submissions": [
+      {
+        "track": "Papers",
+        "deadlineType": "Paper submission",
+        "forEdition": "VRST 2026",
+        "deadline": "2026-07-20T23:59:00",
+        "timezone": "Etc/UTC"
+      }
+    ]
+  },
+  {
+    "id": "ilearning",
+    "name": "iLearning",
+    "fullName": "The Learning Ideas Conference (iLearning / TLIC)",
+    "description": "Applied learning and e-learning venue. Good fit for practitioner-oriented research on learning, training, and educational technology.",
+    "categories": ["Education"],
+    "website": "https://www.ilearningsummit.org/",
+    "upcomingEvent": {
+      "name": "iLearning 2026",
+      "startDate": "2026-06-10",
+      "endDate": "2026-06-12",
+      "location": "New York, NY, USA (hybrid)",
+      "confirmed": true
+    },
+    "submissions": [
+      {
+        "track": "Main Track",
+        "deadlineType": "Paper submission",
+        "forEdition": "iLearning 2027",
+        "deadline": "2026-12-15T23:59:00",
+        "timezone": "America/New_York",
+        "estimated": true,
+        "estimate_basis": "Based on last year's proposal deadline (Dec 15, 2025)."
+      }
+    ]
+  }
+]
