@@ -12,10 +12,10 @@
         "track": "Full Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "DRS 2028 (biennial)",
-        "deadline": "2027-10-15T23:59:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "DRS is biennial; last paper deadline was roughly one year before the event. Placeholder — check when DRS 2028 CFP opens."
+        "estimate_basis": "DRS 2028 CFP has not been announced yet. Last cycle suggests papers were due about one year before the conference."
       }
     ]
   },
@@ -38,10 +38,10 @@
         "track": "Main Track",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "MXR 2027",
-        "deadline": "2026-12-15T23:59:00",
+        "deadline": null,
         "timezone": "America/Los_Angeles",
         "estimated": true,
-        "estimate_basis": "MXR 2026 CFP closed in early 2026; MXR 2027 CFP not yet announced. Placeholder based on typical winter timing."
+        "estimate_basis": "MXR 2027 CFP has not been announced yet. Last year (MXR 2026) CFP closed in early 2026."
       }
     ]
   },
@@ -58,10 +58,10 @@
         "track": "Research Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "ISLS 2027",
-        "deadline": "2026-09-30T23:59:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "ISLS 2027 CFP not yet announced. Last year (ISLS 2026) papers were due in early October."
+        "estimate_basis": "ISLS 2027 CFP has not been announced yet. Last year (ISLS 2026) papers were due in early October."
       }
     ]
   },
@@ -78,10 +78,10 @@
         "track": "Paper Submissions",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "AERA 2027",
-        "deadline": "2026-07-31T23:59:00",
+        "deadline": null,
         "timezone": "America/New_York",
         "estimated": true,
-        "estimate_basis": "AERA 2027 CFP not yet announced. Last year (AERA 2026) paper submissions were due around late July."
+        "estimate_basis": "AERA 2027 CFP has not been announced yet. Last year (AERA 2026) paper submissions were due around late July."
       }
     ]
   },
@@ -98,10 +98,10 @@
         "track": "Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "CHI 2027",
-        "deadline": "2026-09-11T19:00:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "CHI 2027 CFP not yet announced. Last year (CHI 2026) papers were due September 11, 2025."
+        "estimate_basis": "CHI 2027 CFP has not been announced yet. Last year (CHI 2026) papers were due on September 11, 2025."
       }
     ]
   },
@@ -144,19 +144,19 @@
         "track": "Full & Short Abstracts",
         "deadlineType": "Abstract Submission Deadline",
         "forEdition": "IDC 2027",
-        "deadline": "2027-01-20T23:59:00",
+        "deadline": null,
         "timezone": "Etc/GMT+12",
         "estimated": true,
-        "estimate_basis": "IDC 2027 CFP not yet announced. Last year (IDC 2026) abstract phase was roughly one week before the Jan 27 paper deadline."
+        "estimate_basis": "IDC 2027 CFP has not been announced yet. Last year (IDC 2026) abstracts were due about one week before the paper deadline."
       },
       {
         "track": "Full & Short Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "IDC 2027",
-        "deadline": "2027-01-27T23:59:00",
+        "deadline": null,
         "timezone": "Etc/GMT+12",
         "estimated": true,
-        "estimate_basis": "IDC 2027 CFP not yet announced. IDC 2026 and IDC 2025 full & short papers were both due January 27 (AoE)."
+        "estimate_basis": "IDC 2027 CFP has not been announced yet. Last year (IDC 2026) full and short papers were due on January 27 (AoE)."
       }
     ]
   },
@@ -182,7 +182,7 @@
         "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "AIED 2027 main-track CFP has not been announced yet. Do not treat this as a published deadline."
+        "estimate_basis": "AIED 2027 main-track CFP has not been announced yet. Deadline is TBD."
       },
       {
         "track": "Late Breaking Results",
@@ -213,10 +213,10 @@
         "track": "Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "L@S 2027",
-        "deadline": "2026-11-06T23:59:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "L@S 2027 CFP not yet announced. Last year (L@S 2026) papers were due around early November."
+        "estimate_basis": "L@S 2027 CFP is not announced yet. Last year (L@S 2026) papers were due on February 16, 2026 (11:59 PM AoE)."
       }
     ]
   },
@@ -239,19 +239,19 @@
         "track": "Abstracts",
         "deadlineType": "Abstract Submission Deadline",
         "forEdition": "IEEE VR 2027",
-        "deadline": "2026-09-03T23:59:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "IEEE VR 2027 CFP not yet announced. Last year (IEEE VR 2026) abstracts were due early September; papers one week later."
+        "estimate_basis": "IEEE VR 2027 CFP has not been announced yet. Last year (IEEE VR 2026) abstracts were due in early September."
       },
       {
         "track": "Conference Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "IEEE VR 2027",
-        "deadline": "2026-09-10T23:59:00",
+        "deadline": null,
         "timezone": "Etc/UTC",
         "estimated": true,
-        "estimate_basis": "IEEE VR 2027 CFP not yet announced. Last year (IEEE VR 2026) full papers were due around September 10."
+        "estimate_basis": "IEEE VR 2027 CFP has not been announced yet. Last year (IEEE VR 2026) full papers were due around September 10."
       }
     ]
   },
@@ -261,17 +261,17 @@
     "fullName": "IEEE International Symposium on Mixed and Augmented Reality",
     "description": "Premier AR/MR venue. Good fit for tracking, displays, rendering, perception, and applications of mixed/augmented reality.",
     "categories": ["XR"],
-    "website": "https://ismar.org/",
+    "website": "https://www.ieeeismar.net/2026/",
     "upcomingEvent": null,
     "submissions": [
       {
         "track": "Papers",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "ISMAR 2027",
-        "deadline": "2027-03-22T23:59:00",
-        "timezone": "Etc/UTC",
+        "deadline": null,
+        "timezone": "Etc/GMT+12",
         "estimated": true,
-        "estimate_basis": "ISMAR 2027 CFP not yet announced. Last year (ISMAR 2026) papers were due around March 22, 2026."
+        "estimate_basis": "ISMAR 2027 CFP has not been announced yet. Last year (ISMAR 2026) papers were due on March 16, 2026 (23:59 AoE)."
       }
     ]
   },
@@ -325,10 +325,10 @@
         "track": "Main Track",
         "deadlineType": "Paper Submission Deadline",
         "forEdition": "iLearning 2027",
-        "deadline": "2026-12-15T23:59:00",
+        "deadline": null,
         "timezone": "America/New_York",
         "estimated": true,
-        "estimate_basis": "iLearning 2027 CFP not yet announced. Last year (iLearning 2026) proposals were due December 15, 2025."
+        "estimate_basis": "iLearning 2027 CFP has not been announced yet. Last year (iLearning 2026) proposals were due on December 15, 2025."
       }
     ]
   }

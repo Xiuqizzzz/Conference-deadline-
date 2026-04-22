@@ -130,6 +130,16 @@ function isPaperLike(submission) {
   );
 }
 
+function isAbstractSubmission(submission) {
+  const text = `${submission.deadlineType || ""} ${submission.track || ""}`.toLowerCase();
+  return text.includes("abstract");
+}
+
+function isCameraReadySubmission(submission) {
+  const text = `${submission.deadlineType || ""} ${submission.track || ""}`.toLowerCase();
+  return text.includes("camera-ready") || text.includes("camera ready");
+}
+
 function sortByRelevance(submissions) {
   const statusRank = (submission) => {
     if (submission.status === "today" || submission.status === "upcoming") return 0;
@@ -189,28 +199,13 @@ function buildDeadlineItem(conference, submission) {
   const timeText = formatInTimezone(submission.deadlineDate, submission.timezone);
   dateEl.textContent = timeText;
 
-  const edition = document.createElement("p");
-  edition.className = "deadline-edition";
-  edition.textContent = submission.forEdition || "";
-
-  const note = document.createElement("p");
-  note.className = "deadline-note";
-  const visibleNotes = [];
-  const fullNotes = [];
-  if (submission.estimated) {
-    visibleNotes.push("Estimated date");
-    if (submission.estimateBasis) fullNotes.push(`Estimated — ${submission.estimateBasis}`);
-  }
-  if (submission.note) {
-    visibleNotes.push(submission.note);
-    fullNotes.push(submission.note);
-  }
-  note.textContent = visibleNotes.join(" · ");
-  if (fullNotes.length > 0) note.title = fullNotes.join(" | ");
-
   const countdown = document.createElement("p");
   countdown.className = "deadline-countdown";
-  countdown.textContent = countdownText(submission.deadlineDate);
+  if (!submission.deadlineDate && submission.estimateBasis) {
+    countdown.textContent = submission.estimateBasis;
+  } else {
+    countdown.textContent = countdownText(submission.deadlineDate);
+  }
 
   const calendar = document.createElement("a");
   calendar.className = "calendar-link";
@@ -228,9 +223,7 @@ function buildDeadlineItem(conference, submission) {
   }
 
   item.appendChild(titleEl);
-  item.appendChild(edition);
   item.appendChild(dateEl);
-  item.appendChild(note);
   item.appendChild(countdown);
   item.appendChild(calendar);
   return item;
@@ -241,7 +234,10 @@ function render() {
   const list = state.conferences
     .map((conf) => {
       const visibleSubmissions = dedupeSubmissions(conf.submissions).filter(
-        (s) => state.showPast || s.status !== "past"
+        (s) =>
+          !isAbstractSubmission(s) &&
+          !isCameraReadySubmission(s) &&
+          (state.showPast || s.status !== "past")
       );
       const primarySubmission = pickPrimarySubmission(visibleSubmissions);
       return { ...conf, visibleSubmissions, primarySubmission };
@@ -317,35 +313,9 @@ function render() {
     }
 
     const itemsContainer = rowEl.querySelector(".deadline-items");
-    const primary = pickPrimarySubmission(conf.visibleSubmissions);
-    if (primary) {
-      itemsContainer.appendChild(buildDeadlineItem(conf, primary));
-
-      const secondary = conf.visibleSubmissions.filter((submission) => submission !== primary);
-      if (secondary.length > 0) {
-        const toggle = document.createElement("button");
-        toggle.type = "button";
-        toggle.className = "more-deadlines-toggle";
-        toggle.textContent = `+ ${secondary.length} more deadlines`;
-
-        const moreList = document.createElement("div");
-        moreList.className = "deadline-items";
-        moreList.hidden = true;
-
-        for (const submission of secondary) {
-          moreList.appendChild(buildDeadlineItem(conf, submission));
-        }
-
-        toggle.addEventListener("click", () => {
-          moreList.hidden = !moreList.hidden;
-          toggle.textContent = moreList.hidden
-            ? `+ ${secondary.length} more deadlines`
-            : "− Hide extra deadlines";
-        });
-
-        itemsContainer.appendChild(toggle);
-        itemsContainer.appendChild(moreList);
-      }
+    const orderedSubmissions = sortByRelevance(conf.visibleSubmissions);
+    for (const submission of orderedSubmissions) {
+      itemsContainer.appendChild(buildDeadlineItem(conf, submission));
     }
     fragment.appendChild(rowEl);
   }
