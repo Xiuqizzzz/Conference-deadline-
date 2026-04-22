@@ -6,20 +6,16 @@
     "description": "Premier venue for design research, methods, practice, and design-led social change. Good fit for reflective design research, methodology, and design theory papers.",
     "categories": ["Design"],
     "website": "https://www.designresearchsociety.org/",
-    "upcomingEvent": {
-      "name": "DRS 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA (biennial, rotates internationally)",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Full Papers",
-        "deadlineType": "Paper submission",
-        "forEdition": "DRS 2028",
-        "deadline": "2026-10-15T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "DRS 2028 (biennial)",
+        "deadline": "2027-10-15T23:59:00",
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "DRS is biennial; last paper deadline was roughly one year before the event. Placeholder — check when DRS 2028 CFP opens."
       }
     ]
   },
@@ -40,11 +36,12 @@
     "submissions": [
       {
         "track": "Main Track",
-        "deadlineType": "Paper submission",
-        "forEdition": "MXR 2026",
-        "deadline": null,
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "MXR 2027",
+        "deadline": "2026-12-15T23:59:00",
         "timezone": "America/Los_Angeles",
-        "note": "Check the MXR 2026 CFP page for the official paper deadline."
+        "estimated": true,
+        "estimate_basis": "MXR 2026 CFP closed in early 2026; MXR 2027 CFP not yet announced. Placeholder based on typical winter timing."
       }
     ]
   },
@@ -55,20 +52,16 @@
     "description": "Flagship venue for learning sciences and CSCL research. Good fit for empirical studies of learning, collaboration, technology-mediated education, and learning analytics.",
     "categories": ["Education", "Learning Sciences"],
     "website": "https://www.isls.org/",
-    "upcomingEvent": {
-      "name": "ISLS 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Research Papers",
-        "deadlineType": "Paper submission",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "ISLS 2027",
         "deadline": "2026-09-30T23:59:00",
-        "timezone": "Etc/UTC"
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "ISLS 2027 CFP not yet announced. Last year (ISLS 2026) papers were due in early October."
       }
     ]
   },
@@ -79,20 +72,16 @@
     "description": "Largest education research conference in the world. Good fit for theoretical, methodological, and empirical education research across K-12, higher ed, and policy.",
     "categories": ["Education"],
     "website": "https://www.aera.net/",
-    "upcomingEvent": {
-      "name": "AERA 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA (North America)",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Paper Submissions",
-        "deadlineType": "Paper submission",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "AERA 2027",
         "deadline": "2026-07-31T23:59:00",
-        "timezone": "America/New_York"
+        "timezone": "America/New_York",
+        "estimated": true,
+        "estimate_basis": "AERA 2027 CFP not yet announced. Last year (AERA 2026) paper submissions were due around late July."
       }
     ]
   },
@@ -103,20 +92,16 @@
     "description": "Top-tier HCI venue. Good fit for rigorous empirical, systems, theory, and design papers on human-computer interaction.",
     "categories": ["HCI"],
     "website": "https://chi2027.acm.org/",
-    "upcomingEvent": {
-      "name": "CHI 2026",
-      "startDate": "2026-04-13",
-      "endDate": "2026-04-17",
-      "location": "Barcelona, Spain",
-      "confirmed": true
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Papers",
-        "deadlineType": "Paper submission",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "CHI 2027",
-        "deadline": "2026-09-12T19:00:00",
-        "timezone": "Etc/UTC"
+        "deadline": "2026-09-11T19:00:00",
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "CHI 2027 CFP not yet announced. Last year (CHI 2026) papers were due September 11, 2025."
       }
     ]
   },
@@ -127,20 +112,16 @@
     "description": "HCI + design venue. Good fit for research-through-design, speculative design, and design-oriented HCI papers.",
     "categories": ["HCI", "Design"],
     "website": "https://dis.acm.org/",
-    "upcomingEvent": {
-      "name": "DIS 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Papers",
-        "deadlineType": "Paper submission",
-        "forEdition": "DIS 2026",
-        "deadline": "2026-01-17T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "DIS 2027",
+        "deadline": null,
+        "timezone": "Etc/GMT+12",
+        "estimated": true,
+        "estimate_basis": "DIS 2027 CFP not yet announced. Last year (DIS 2026) papers were due January 17, 2026 (AoE)."
       }
     ]
   },
@@ -150,21 +131,32 @@
     "fullName": "ACM Interaction Design and Children",
     "description": "Premier venue for child-centered HCI. Good fit for technology, design, and empirical research with children and young people.",
     "categories": ["HCI", "Education"],
-    "website": "https://idc.acm.org/",
+    "website": "https://idc.acm.org/2026/",
     "upcomingEvent": {
       "name": "IDC 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-25",
+      "location": "Brighton, United Kingdom",
+      "confirmed": true
     },
     "submissions": [
       {
-        "track": "Papers",
-        "deadlineType": "Paper submission",
+        "track": "Full & Short Abstracts",
+        "deadlineType": "Abstract Submission Deadline",
         "forEdition": "IDC 2027",
-        "deadline": "2026-12-09T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadline": "2027-01-20T23:59:00",
+        "timezone": "Etc/GMT+12",
+        "estimated": true,
+        "estimate_basis": "IDC 2027 CFP not yet announced. Last year (IDC 2026) abstract phase was roughly one week before the Jan 27 paper deadline."
+      },
+      {
+        "track": "Full & Short Papers",
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "IDC 2027",
+        "deadline": "2027-01-27T23:59:00",
+        "timezone": "Etc/GMT+12",
+        "estimated": true,
+        "estimate_basis": "IDC 2027 CFP not yet announced. IDC 2026 and IDC 2025 full & short papers were both due January 27 (AoE)."
       }
     ]
   },
@@ -174,21 +166,37 @@
     "fullName": "International Conference on Artificial Intelligence in Education",
     "description": "Top venue for AI + learning technologies. Good fit for intelligent tutoring systems, LLMs in education, learning analytics, and adaptive learning.",
     "categories": ["Education", "AI"],
-    "website": "https://aied2026.org/",
+    "website": "https://www.aied-conference.org/2026",
     "upcomingEvent": {
       "name": "AIED 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
+      "startDate": "2026-06-27",
+      "endDate": "2026-07-03",
+      "location": "Coex Center, Seoul, Republic of Korea",
+      "confirmed": true
     },
     "submissions": [
       {
-        "track": "Full Papers",
-        "deadlineType": "Paper submission",
+        "track": "Main Track",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "AIED 2027",
-        "deadline": "2026-10-01T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadline": null,
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "AIED 2027 main-track CFP has not been announced yet. Do not treat this as a published deadline."
+      },
+      {
+        "track": "Late Breaking Results",
+        "deadlineType": "Camera-ready Deadline",
+        "forEdition": "AIED 2026",
+        "deadline": "2026-04-25T23:59:00",
+        "timezone": "Asia/Seoul"
+      },
+      {
+        "track": "WideAIED",
+        "deadlineType": "Camera-ready Deadline",
+        "forEdition": "AIED 2026",
+        "deadline": "2026-04-26T23:59:00",
+        "timezone": "Asia/Seoul"
       }
     ]
   },
@@ -199,20 +207,16 @@
     "description": "Focused on large-scale learning environments (MOOCs, intelligent tutors, online courses). Good fit for data-driven studies of learning at scale.",
     "categories": ["Education", "HCI"],
     "website": "https://learningatscale.acm.org/",
-    "upcomingEvent": {
-      "name": "L@S 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Papers",
-        "deadlineType": "Paper submission",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "L@S 2027",
         "deadline": "2026-11-06T23:59:00",
-        "timezone": "Etc/UTC"
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "L@S 2027 CFP not yet announced. Last year (L@S 2026) papers were due around early November."
       }
     ]
   },
@@ -222,21 +226,32 @@
     "fullName": "IEEE Conference on Virtual Reality and 3D User Interfaces",
     "description": "Top virtual reality venue. Good fit for rigorous VR systems, interaction, perception, rendering, and empirical VR studies.",
     "categories": ["XR"],
-    "website": "https://ieeevr.org/",
+    "website": "https://ieeevr.org/2027/",
     "upcomingEvent": {
-      "name": "IEEE VR 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
+      "name": "IEEE VR 2027",
+      "startDate": "2027-02-27",
+      "endDate": "2027-03-03",
+      "location": "Melbourne, Australia",
+      "confirmed": true
     },
     "submissions": [
       {
-        "track": "Conference Papers",
-        "deadlineType": "Paper submission",
+        "track": "Abstracts",
+        "deadlineType": "Abstract Submission Deadline",
         "forEdition": "IEEE VR 2027",
-        "deadline": "2026-09-22T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadline": "2026-09-03T23:59:00",
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "IEEE VR 2027 CFP not yet announced. Last year (IEEE VR 2026) abstracts were due early September; papers one week later."
+      },
+      {
+        "track": "Conference Papers",
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "IEEE VR 2027",
+        "deadline": "2026-09-10T23:59:00",
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "IEEE VR 2027 CFP not yet announced. Last year (IEEE VR 2026) full papers were due around September 10."
       }
     ]
   },
@@ -247,20 +262,16 @@
     "description": "Premier AR/MR venue. Good fit for tracking, displays, rendering, perception, and applications of mixed/augmented reality.",
     "categories": ["XR"],
     "website": "https://ismar.org/",
-    "upcomingEvent": {
-      "name": "ISMAR 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
-    },
+    "upcomingEvent": null,
     "submissions": [
       {
         "track": "Papers",
-        "deadlineType": "Paper submission",
-        "forEdition": "ISMAR 2026",
-        "deadline": "2026-03-22T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "ISMAR 2027",
+        "deadline": "2027-03-22T23:59:00",
+        "timezone": "Etc/UTC",
+        "estimated": true,
+        "estimate_basis": "ISMAR 2027 CFP not yet announced. Last year (ISMAR 2026) papers were due around March 22, 2026."
       }
     ]
   },
@@ -270,21 +281,28 @@
     "fullName": "ACM Symposium on Virtual Reality Software and Technology",
     "description": "VR/AR software and systems venue. Good fit for novel VR/AR techniques, interaction, rendering, and systems papers.",
     "categories": ["XR", "HCI"],
-    "website": "https://vrst.acm.org/",
+    "website": "https://vrst.acm.org/vrst2026/",
     "upcomingEvent": {
       "name": "VRST 2026",
-      "startDate": null,
-      "endDate": null,
-      "location": "TBA",
-      "confirmed": false
+      "startDate": "2026-11-16",
+      "endDate": "2026-11-18",
+      "location": "Research Institute of Electrical Communication, Tohoku University, Sendai, Japan",
+      "confirmed": true
     },
     "submissions": [
       {
-        "track": "Papers",
-        "deadlineType": "Paper submission",
+        "track": "Paper Abstracts",
+        "deadlineType": "Abstract Submission Deadline",
         "forEdition": "VRST 2026",
-        "deadline": "2026-07-20T23:59:00",
-        "timezone": "Etc/UTC"
+        "deadline": "2026-06-08T23:59:00",
+        "timezone": "Etc/GMT+12"
+      },
+      {
+        "track": "Papers",
+        "deadlineType": "Paper Submission Deadline",
+        "forEdition": "VRST 2026",
+        "deadline": "2026-06-15T23:59:00",
+        "timezone": "Etc/GMT+12"
       }
     ]
   },
@@ -305,12 +323,12 @@
     "submissions": [
       {
         "track": "Main Track",
-        "deadlineType": "Paper submission",
+        "deadlineType": "Paper Submission Deadline",
         "forEdition": "iLearning 2027",
         "deadline": "2026-12-15T23:59:00",
         "timezone": "America/New_York",
         "estimated": true,
-        "estimate_basis": "Based on last year's proposal deadline (Dec 15, 2025)."
+        "estimate_basis": "iLearning 2027 CFP not yet announced. Last year (iLearning 2026) proposals were due December 15, 2025."
       }
     ]
   }

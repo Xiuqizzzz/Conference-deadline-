@@ -4,101 +4,57 @@ const ui = {
   meta: document.querySelector("#meta"),
   searchInput: document.querySelector("#search-input"),
   categoryFilter: document.querySelector("#category-filter"),
-  sortSelect: document.querySelector("#sort-select"),
-  timezoneMode: document.querySelector("#timezone-mode"),
   showPast: document.querySelector("#show-past"),
 };
 
 const state = {
-  rows: [],
+  conferences: [],
   category: "all",
   search: "",
-  sort: "soonest",
-  timezoneMode: "local",
   showPast: false,
 };
 
 function parseDeadline(deadline, timezone) {
-  if (!deadline) {
-    return null;
-  }
-
-  const normalizedTimezone = timezone || "Etc/UTC";
+  if (!deadline) return null;
   const timezoneOffsetMap = {
     "Etc/UTC": "Z",
     UTC: "Z",
     "America/New_York": "-04:00",
     "America/Los_Angeles": "-07:00",
+    "Etc/GMT+12": "-12:00",
+    AoE: "-12:00",
+    "Asia/Seoul": "+09:00",
   };
-
-  const explicitOffset = timezoneOffsetMap[normalizedTimezone] || "Z";
-  const withOffset = `${deadline}${explicitOffset}`;
-  const parsed = new Date(withOffset);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return null;
-  }
-
-  return parsed;
+  const explicitOffset = timezoneOffsetMap[timezone || "Etc/UTC"] || "Z";
+  const parsed = new Date(`${deadline}${explicitOffset}`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 function dateStatus(dateValue) {
-  if (!dateValue) {
-    return "unknown";
-  }
-
+  if (!dateValue) return "unknown";
   const now = new Date();
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    0,
-    0,
-    0
-  );
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const startOfTomorrow = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000);
-
-  if (dateValue >= startOfToday && dateValue < startOfTomorrow) {
-    return "today";
-  }
-  if (dateValue < now) {
-    return "past";
-  }
+  if (dateValue >= startOfToday && dateValue < startOfTomorrow) return "today";
+  if (dateValue < now) return "past";
   return "upcoming";
 }
 
 function countdownText(dateValue) {
-  if (!dateValue) {
-    return "Deadline not announced";
-  }
-
-  const now = new Date();
-  const diff = dateValue.getTime() - now.getTime();
+  if (!dateValue) return "Deadline not announced";
+  const diff = dateValue.getTime() - Date.now();
   const absDiff = Math.abs(diff);
-
   const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((absDiff / (1000 * 60)) % 60);
-
-  if (diff >= 0) {
-    return `${days}d ${hours}h ${minutes}m remaining`;
-  }
-  return `${days}d ${hours}h ${minutes}m ago`;
+  return diff >= 0
+    ? `${days}d ${hours}h ${minutes}m remaining`
+    : `${days}d ${hours}h ${minutes}m ago`;
 }
 
-function formatInTimezone(dateValue, timezoneMode, conferenceTimezone) {
-  if (!dateValue) {
-    return "TBD";
-  }
-
-  let timezone;
-  if (timezoneMode === "conference") {
-    timezone = conferenceTimezone || "Etc/UTC";
-  } else if (timezoneMode === "utc") {
-    timezone = "Etc/UTC";
-  } else {
-    timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  }
+function formatInTimezone(dateValue, conferenceTimezone) {
+  if (!dateValue) return "TBD";
+  const timezone = conferenceTimezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return new Intl.DateTimeFormat("en-US", {
     weekday: "short",
@@ -108,219 +64,296 @@ function formatInTimezone(dateValue, timezoneMode, conferenceTimezone) {
     hour: "numeric",
     minute: "2-digit",
     timeZone: timezone,
-    timeZoneName: "short",
+    timeZoneName: "shortOffset",
   }).format(dateValue);
 }
 
-function formatEventDates(event) {
-  if (!event) {
-    return "Event dates TBA";
-  }
-
-  const { startDate, endDate } = event;
-  if (!startDate && !endDate) {
-    return "Event dates TBA";
-  }
-
-  const start = startDate ? new Date(`${startDate}T12:00:00Z`) : null;
-  const end = endDate ? new Date(`${endDate}T12:00:00Z`) : null;
-
-  const monthDay = (d) =>
-    new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      timeZone: "Etc/UTC",
-    }).format(d);
-
+function formatEventSummary(event) {
+  if (!event || (!event.startDate && !event.endDate)) return "Event dates TBA";
+  const start = event.startDate ? new Date(`${event.startDate}T12:00:00Z`) : null;
+  const end = event.endDate ? new Date(`${event.endDate}T12:00:00Z`) : null;
+  const monthDay = (d) => new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", timeZone: "Etc/UTC" }).format(d);
   const year = (d) =>
     new Intl.DateTimeFormat("en-US", { year: "numeric", timeZone: "Etc/UTC" }).format(d);
-
-  if (start && end) {
-    if (year(start) === year(end)) {
-      return `${monthDay(start)} – ${monthDay(end)}, ${year(end)}`;
-    }
-    return `${monthDay(start)}, ${year(start)} – ${monthDay(end)}, ${year(end)}`;
-  }
-
+  const locationText = event.location ? `, ${event.location}` : "";
+  if (start && end) return `${monthDay(start)}-${monthDay(end)} ${year(end)}${locationText}`;
   const only = start || end;
-  return `${monthDay(only)}, ${year(only)}`;
+  return `${monthDay(only)} ${year(only)}${locationText}`;
 }
 
-function toICSUrl(row) {
-  if (!row.deadlineDate) {
-    return "#";
-  }
-
+function toUtcCompact(dateValue) {
   const pad = (value) => String(value).padStart(2, "0");
-  const date = row.deadlineDate;
-  const toUtcString = (d) =>
-    `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(
-      d.getUTCDate()
-    )}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+  return `${dateValue.getUTCFullYear()}${pad(dateValue.getUTCMonth() + 1)}${pad(
+    dateValue.getUTCDate()
+  )}T${pad(dateValue.getUTCHours())}${pad(dateValue.getUTCMinutes())}${pad(dateValue.getUTCSeconds())}Z`;
+}
 
-  const startUtc = toUtcString(date);
-  const endUtc = toUtcString(new Date(date.getTime() + 60 * 60 * 1000));
-  const safeTitle = `${row.conference.name} ${row.forEdition} - ${row.deadlineType}`;
+function toICSUrl(conference, submission) {
+  if (!submission.deadlineDate) return "#";
+  const startUtc = toUtcCompact(submission.deadlineDate);
+  const endUtc = toUtcCompact(new Date(submission.deadlineDate.getTime() + 60 * 60 * 1000));
+  const summary = `${conference.name} - ${submission.deadlineType}`;
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "BEGIN:VEVENT",
-    `UID:${row.conference.id}-${row.forEdition.replaceAll(" ", "-")}-${row.deadlineType.replaceAll(" ", "-")}@conference-tracker`,
-    `DTSTAMP:${toUtcString(new Date())}`,
+    `UID:${conference.id}-${submission.deadlineType.replaceAll(" ", "-")}@conference-tracker`,
+    `DTSTAMP:${toUtcCompact(new Date())}`,
     `DTSTART:${startUtc}`,
     `DTEND:${endUtc}`,
-    `SUMMARY:${safeTitle}`,
-    `DESCRIPTION:${row.deadlineType} deadline for ${row.conference.name} ${row.forEdition}`,
+    `SUMMARY:${summary}`,
+    `DESCRIPTION:${submission.deadlineType} for ${conference.name} ${submission.forEdition || ""}`.trim(),
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\n");
-
   return `data:text/calendar;charset=utf8,${encodeURIComponent(ics)}`;
 }
 
+function normalizeCategories(conference) {
+  if (Array.isArray(conference.categories) && conference.categories.length > 0) return conference.categories;
+  if (conference.category) return [conference.category];
+  return ["Other"];
+}
+
+function isEventPast(event) {
+  if (!event || !event.endDate) return false;
+  return new Date(`${event.endDate}T23:59:59Z`).getTime() < Date.now();
+}
+
+function isPaperLike(submission) {
+  const text = `${submission.deadlineType || ""} ${submission.track || ""}`.toLowerCase();
+  return (
+    text.includes("paper") ||
+    text.includes("main track") ||
+    text.includes("full") ||
+    text.includes("submission")
+  );
+}
+
+function sortByRelevance(submissions) {
+  const statusRank = (submission) => {
+    if (submission.status === "today" || submission.status === "upcoming") return 0;
+    if (submission.status === "unknown") return 1;
+    return 2;
+  };
+  return [...submissions].sort((a, b) => {
+    const rankDiff = statusRank(a) - statusRank(b);
+    if (rankDiff !== 0) return rankDiff;
+    const aTime = a.deadlineDate ? a.deadlineDate.getTime() : Number.POSITIVE_INFINITY;
+    const bTime = b.deadlineDate ? b.deadlineDate.getTime() : Number.POSITIVE_INFINITY;
+    return aTime - bTime;
+  });
+}
+
+function pickPrimarySubmission(submissions) {
+  const paperCandidates = submissions.filter(isPaperLike);
+  const pool = paperCandidates.length > 0 ? paperCandidates : submissions;
+  const sorted = sortByRelevance(pool);
+  return sorted[0] || null;
+}
+
+function dedupeSubmissions(submissions) {
+  const seen = new Set();
+  const unique = [];
+  for (const submission of submissions) {
+    const key = [
+      submission.deadlineType || "",
+      submission.track || "",
+      submission.forEdition || "",
+      submission.deadlineDate ? submission.deadlineDate.getTime() : "none",
+      submission.timezone || "",
+    ].join("::");
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(submission);
+  }
+  return unique;
+}
+
+function formatDeadlineLabel(submission) {
+  const rawLabel = (submission.deadlineType || submission.track || "Deadline").trim();
+  const compactLabel = rawLabel.replace(/\s+deadline$/i, "");
+  return compactLabel || "Deadline";
+}
+
+function buildDeadlineItem(conference, submission) {
+  const item = document.createElement("div");
+  item.className = "deadline-item";
+
+  const titleEl = document.createElement("p");
+  titleEl.className = "deadline-title";
+  titleEl.textContent = formatDeadlineLabel(submission);
+
+  const dateEl = document.createElement("p");
+  dateEl.className = "deadline-date";
+  const timeText = formatInTimezone(submission.deadlineDate, submission.timezone);
+  dateEl.textContent = timeText;
+
+  const edition = document.createElement("p");
+  edition.className = "deadline-edition";
+  edition.textContent = submission.forEdition || "";
+
+  const note = document.createElement("p");
+  note.className = "deadline-note";
+  const visibleNotes = [];
+  const fullNotes = [];
+  if (submission.estimated) {
+    visibleNotes.push("Estimated date");
+    if (submission.estimateBasis) fullNotes.push(`Estimated — ${submission.estimateBasis}`);
+  }
+  if (submission.note) {
+    visibleNotes.push(submission.note);
+    fullNotes.push(submission.note);
+  }
+  note.textContent = visibleNotes.join(" · ");
+  if (fullNotes.length > 0) note.title = fullNotes.join(" | ");
+
+  const countdown = document.createElement("p");
+  countdown.className = "deadline-countdown";
+  countdown.textContent = countdownText(submission.deadlineDate);
+
+  const calendar = document.createElement("a");
+  calendar.className = "calendar-link";
+  calendar.textContent = "📅 Add to Calendar";
+  calendar.href = toICSUrl(conference, submission);
+  if (submission.deadlineDate) {
+    calendar.setAttribute(
+      "download",
+      `${conference.id}-${(submission.deadlineType || "deadline").replaceAll(" ", "-")}.ics`
+    );
+  } else {
+    calendar.removeAttribute("href");
+    calendar.style.pointerEvents = "none";
+    calendar.style.opacity = "0.45";
+  }
+
+  item.appendChild(titleEl);
+  item.appendChild(edition);
+  item.appendChild(dateEl);
+  item.appendChild(note);
+  item.appendChild(countdown);
+  item.appendChild(calendar);
+  return item;
+}
+
 function render() {
-  const filteredRows = state.rows
-    .filter((row) => {
-      if (!state.showPast && row.status === "past") {
-        return false;
-      }
-
-      if (state.category !== "all" && !row.categories.includes(state.category)) {
-        return false;
-      }
-
+  const displayTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const list = state.conferences
+    .map((conf) => {
+      const visibleSubmissions = dedupeSubmissions(conf.submissions).filter(
+        (s) => state.showPast || s.status !== "past"
+      );
+      const primarySubmission = pickPrimarySubmission(visibleSubmissions);
+      return { ...conf, visibleSubmissions, primarySubmission };
+    })
+    .filter((conf) => conf.visibleSubmissions.length > 0 && conf.primarySubmission)
+    .filter((conf) => state.category === "all" || conf.categories.includes(state.category))
+    .filter((conf) => {
       const haystack = [
-        row.conference.name,
-        row.conference.fullName || "",
-        row.conference.description || "",
-        row.conference.upcomingEvent ? row.conference.upcomingEvent.location || "" : "",
-        row.forEdition || "",
-        row.deadlineType || "",
-        row.categories.join(" "),
+        conf.name,
+        conf.fullName || "",
+        conf.description || "",
+        conf.upcomingEvent ? conf.upcomingEvent.location || "" : "",
+        conf.categories.join(" "),
+        ...conf.visibleSubmissions.map((s) => `${s.deadlineType} ${s.forEdition} ${s.note || ""}`),
       ]
         .join(" ")
         .toLowerCase();
-
-      if (!haystack.includes(state.search.toLowerCase())) {
-        return false;
-      }
-
-      return true;
+      return haystack.includes(state.search.toLowerCase());
     })
     .sort((a, b) => {
-      if (state.sort === "name") {
-        return a.conference.name.localeCompare(b.conference.name);
-      }
-
-      const aTime = a.deadlineDate ? a.deadlineDate.getTime() : Number.POSITIVE_INFINITY;
-      const bTime = b.deadlineDate ? b.deadlineDate.getTime() : Number.POSITIVE_INFINITY;
-
-      return state.sort === "soonest" ? aTime - bTime : bTime - aTime;
+      const aTime = a.primarySubmission.deadlineDate
+        ? a.primarySubmission.deadlineDate.getTime()
+        : Number.POSITIVE_INFINITY;
+      const bTime = b.primarySubmission.deadlineDate
+        ? b.primarySubmission.deadlineDate.getTime()
+        : Number.POSITIVE_INFINITY;
+      return aTime - bTime;
     });
 
   ui.list.innerHTML = "";
-
-  if (filteredRows.length === 0) {
-    ui.meta.textContent = "No matching deadlines found for the current filters.";
+  if (list.length === 0) {
+    ui.meta.textContent = "No matching conferences found for the current filters.";
     return;
   }
 
-  const nextUpcoming = filteredRows.find((row) => row.status === "upcoming" || row.status === "today");
-  const nextText = nextUpcoming
-    ? `Next deadline: ${nextUpcoming.conference.name} (${nextUpcoming.forEdition}, ${nextUpcoming.deadlineType})`
-    : "No upcoming deadlines in current view.";
-  ui.meta.textContent = `${filteredRows.length} submission deadlines shown. ${nextText}`;
+  const next = list
+    .flatMap((c) => {
+      const primary = pickPrimarySubmission(c.visibleSubmissions);
+      return primary ? [{ c, s: primary }] : [];
+    })
+    .filter((x) => x.s.status === "upcoming" || x.s.status === "today")
+    .sort((a, b) => (a.s.deadlineDate?.getTime() || Number.POSITIVE_INFINITY) - (b.s.deadlineDate?.getTime() || Number.POSITIVE_INFINITY))[0];
+
+  ui.meta.textContent = `Deadlines are shown in ${displayTimezone} time. ${list.length} conferences shown. ${
+    next ? `Next deadline: ${next.c.name} (${formatDeadlineLabel(next.s)}).` : "No upcoming deadlines in current view."
+  }`;
 
   const fragment = document.createDocumentFragment();
-
-  for (const row of filteredRows) {
+  for (const conf of list) {
     const rowEl = ui.rowTemplate.content.firstElementChild.cloneNode(true);
+    rowEl.querySelector(".conf-name").textContent = conf.name;
+    const confLink = rowEl.querySelector(".conf-link");
+    confLink.href = conf.website;
+    rowEl.querySelector(".full-name").textContent = conf.fullName || "";
+    rowEl.querySelector(".description").textContent = conf.description || "";
 
-    rowEl.querySelector(".conf-name").textContent = row.conference.name;
-    rowEl.querySelector(".full-name").textContent = row.conference.fullName || "";
-    rowEl.querySelector(".description").textContent = row.conference.description || "";
-
-    const event = row.conference.upcomingEvent;
-    const eventBlock = rowEl.querySelector(".event-block");
-    if (event) {
-      rowEl.querySelector(".event-edition").textContent = event.name || "";
-      rowEl.querySelector(".event-dates").textContent = formatEventDates(event);
-      rowEl.querySelector(".event-location").textContent = event.location
-        ? `• 📍 ${event.location}`
-        : "• 📍 Location TBA";
-      const flag = rowEl.querySelector(".event-confirmed-flag");
-      if (event.confirmed) {
-        flag.remove();
-      } else {
-        flag.textContent = "tentative";
-      }
-    } else {
-      eventBlock.remove();
-    }
+    const event = conf.upcomingEvent && !isEventPast(conf.upcomingEvent) ? conf.upcomingEvent : null;
+    rowEl.querySelector(".event-line").textContent = event ? formatEventSummary(event) : "";
 
     const categoriesEl = rowEl.querySelector(".categories");
     categoriesEl.innerHTML = "";
-    for (const category of row.categories) {
-      const chip = document.createElement("span");
+    for (const category of conf.categories) {
+      const chip = document.createElement("button");
+      chip.type = "button";
       chip.className = "category-chip";
       chip.textContent = category;
+      chip.addEventListener("click", () => {
+        state.category = category;
+        ui.categoryFilter.value = category;
+        render();
+      });
       categoriesEl.appendChild(chip);
     }
 
-    rowEl.querySelector(".deadline-label").textContent =
-      `${row.deadlineType} — ${row.forEdition || "TBA"}`;
-    rowEl.querySelector(".deadline-time").textContent = formatInTimezone(
-      row.deadlineDate,
-      state.timezoneMode,
-      row.timezone
-    );
-    rowEl.querySelector(".countdown").textContent = countdownText(row.deadlineDate);
+    const itemsContainer = rowEl.querySelector(".deadline-items");
+    const primary = pickPrimarySubmission(conf.visibleSubmissions);
+    if (primary) {
+      itemsContainer.appendChild(buildDeadlineItem(conf, primary));
 
-    const noteEl = rowEl.querySelector(".deadline-note");
-    const notes = [];
-    if (row.estimated) notes.push("Estimated date");
-    if (row.note) notes.push(row.note);
-    noteEl.textContent = notes.join(" · ");
+      const secondary = conf.visibleSubmissions.filter((submission) => submission !== primary);
+      if (secondary.length > 0) {
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "more-deadlines-toggle";
+        toggle.textContent = `+ ${secondary.length} more deadlines`;
 
-    const statusBadge = rowEl.querySelector(".status-badge");
-    statusBadge.classList.add(row.status);
-    if (row.status === "today") statusBadge.textContent = "Due today";
-    else if (row.status === "upcoming") statusBadge.textContent = "Upcoming";
-    else if (row.status === "past") statusBadge.textContent = "Past";
-    else statusBadge.textContent = "TBD";
+        const moreList = document.createElement("div");
+        moreList.className = "deadline-items";
+        moreList.hidden = true;
 
-    const websiteLink = rowEl.querySelector(".website-link");
-    websiteLink.href = row.conference.website;
+        for (const submission of secondary) {
+          moreList.appendChild(buildDeadlineItem(conf, submission));
+        }
 
-    const calendarLink = rowEl.querySelector(".calendar-link");
-    calendarLink.href = toICSUrl(row);
-    if (!row.deadlineDate) {
-      calendarLink.removeAttribute("href");
-      calendarLink.setAttribute("aria-disabled", "true");
-      calendarLink.style.pointerEvents = "none";
-      calendarLink.style.opacity = "0.5";
-    } else {
-      calendarLink.setAttribute(
-        "download",
-        `${row.conference.id}-${row.forEdition}-${row.deadlineType}.ics`
-      );
+        toggle.addEventListener("click", () => {
+          moreList.hidden = !moreList.hidden;
+          toggle.textContent = moreList.hidden
+            ? `+ ${secondary.length} more deadlines`
+            : "− Hide extra deadlines";
+        });
+
+        itemsContainer.appendChild(toggle);
+        itemsContainer.appendChild(moreList);
+      }
     }
-
     fragment.appendChild(rowEl);
   }
-
   ui.list.appendChild(fragment);
 }
 
 function syncCategoryOptions() {
-  const all = new Set();
-  for (const row of state.rows) {
-    for (const category of row.categories) {
-      all.add(category);
-    }
-  }
-  const categories = [...all].sort();
-
+  const categories = [...new Set(state.conferences.flatMap((c) => c.categories))].sort();
   ui.categoryFilter.innerHTML = '<option value="all">All categories</option>';
   for (const category of categories) {
     const option = document.createElement("option");
@@ -335,69 +368,42 @@ function attachEvents() {
     state.search = event.target.value.trim();
     render();
   });
-
   ui.categoryFilter.addEventListener("change", (event) => {
     state.category = event.target.value;
     render();
   });
-
-  ui.sortSelect.addEventListener("change", (event) => {
-    state.sort = event.target.value;
-    render();
-  });
-
-  ui.timezoneMode.addEventListener("change", (event) => {
-    state.timezoneMode = event.target.value;
-    render();
-  });
-
   ui.showPast.addEventListener("change", (event) => {
     state.showPast = event.target.checked;
     render();
   });
 }
 
-function normalizeCategories(conference) {
-  if (Array.isArray(conference.categories) && conference.categories.length > 0) {
-    return conference.categories;
-  }
-  if (conference.category) {
-    return [conference.category];
-  }
-  return ["Other"];
-}
-
 async function init() {
   const response = await fetch("./conferences.json");
   const conferenceData = await response.json();
-
-  const rows = [];
-  for (const conference of conferenceData) {
-    const categories = normalizeCategories(conference);
-    for (const submission of conference.submissions) {
+  state.conferences = conferenceData.map((conference) => ({
+    ...conference,
+    categories: normalizeCategories(conference),
+    submissions: (conference.submissions || []).map((submission) => {
       const deadlineDate = parseDeadline(submission.deadline, submission.timezone);
-      rows.push({
-        conference,
-        categories,
-        deadlineType: submission.deadlineType || "Paper submission",
-        forEdition: submission.forEdition || "",
-        timezone: submission.timezone,
+      return {
+        ...submission,
         deadlineDate,
-        estimated: !!submission.estimated,
-        note: submission.note || "",
         status: dateStatus(deadlineDate),
-      });
-    }
-  }
+        estimateBasis: submission.estimate_basis || "",
+      };
+    }),
+  }));
 
-  state.rows = rows;
   syncCategoryOptions();
   attachEvents();
   render();
 
   setInterval(() => {
-    for (const row of state.rows) {
-      row.status = dateStatus(row.deadlineDate);
+    for (const conference of state.conferences) {
+      for (const submission of conference.submissions) {
+        submission.status = dateStatus(submission.deadlineDate);
+      }
     }
     render();
   }, 60 * 1000);
