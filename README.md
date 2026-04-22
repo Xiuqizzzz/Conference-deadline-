@@ -14,10 +14,16 @@ Simple internal deadline tracker inspired by [HCI Deadlines](https://hci-deadlin
 
 ## Files
 
-- `index.html`: page layout
+- `index.html`: main list page layout
+- `conference.html`: per-conference detail page (`?id=<conference-id>`)
 - `styles.css`: visual style
-- `app.js`: filtering, sorting, countdowns, timezone formatting
+- `app.js`: main page filtering, sorting, countdowns
+- `conference.js`: detail page rendering
+- `utils.js`: shared parsing/formatting helpers
 - `conferences.json`: all conference records and deadlines
+- `scripts/fetch_deadlines.py`: optional helper that scrapes each conference's
+  homepage and produces `deadlines-report.md` with candidate dates to review
+  before editing `conferences.json` by hand
 
 ## Update deadlines
 
@@ -46,3 +52,22 @@ python3 -m http.server 8080
 Then open:
 
 http://localhost:8080
+
+## Auto-scrape candidate deadlines (optional)
+
+The homepage of each conference often has an "Important Dates" block. The
+helper script below fetches each site listed in `conferences.json`, pulls out
+any line that mentions deadline-ish keywords plus a date, and writes a
+markdown report for you to review. It never touches `conferences.json`.
+
+```bash
+python3 -m pip install -r scripts/requirements.txt
+python3 scripts/fetch_deadlines.py              # all conferences
+python3 scripts/fetch_deadlines.py --id chi drs # only selected ids
+python3 scripts/fetch_deadlines.py --json       # also dump raw JSON
+```
+
+Output: `deadlines-report.md` (ignored by git). Open it, compare to the
+existing entries listed for each conference, and edit `conferences.json`
+manually when something looks right. Expect some sites to 403 or to lack
+structured date text — in that case follow the link and copy by hand.

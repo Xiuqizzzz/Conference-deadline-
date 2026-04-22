@@ -9,33 +9,30 @@
   <body>
     <nav class="top-nav" aria-label="Main navigation">
       <div class="top-nav-inner">
-        <div class="top-nav-left">
-          <span class="brand">XR-Ed Lab Deadlines</span>
-        </div>
-        <div class="top-nav-right">
-          <a class="top-action" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="top-action" href="#deadline-list">Export .ics</a>
-        </div>
+        <a class="brand" href="./index.html">XR-Ed Lab</a>
       </div>
     </nav>
 
     <header class="page-header">
-      <h1>⏰ XR-Ed Lab Conference Deadlines</h1>
-      <p>Track conference schedules, submission timelines, and planning notes in one place.</p>
+      <h1>Conference Deadlines</h1>
+      <p>Schedules, submission timelines, and planning notes for venues we care about.</p>
     </header>
 
     <main class="layout">
       <section class="controls" aria-label="Filters">
-        <input id="search-input" type="search" placeholder="Search conferences..." />
-
-        <select id="category-filter" aria-label="Category filter">
-          <option value="all">All categories</option>
-        </select>
-
-        <label class="checkbox">
-          <input id="show-past" type="checkbox" />
-          <span>Show past deadlines</span>
-        </label>
+        <div class="controls-row">
+          <input id="search-input" type="search" placeholder="Search conferences..." />
+          <label class="checkbox">
+            <input id="show-past" type="checkbox" />
+            <span>Show past deadlines</span>
+          </label>
+        </div>
+        <div
+          id="category-filter"
+          class="category-filter"
+          role="group"
+          aria-label="Filter by category"
+        ></div>
       </section>
 
       <section id="meta" class="meta"></section>
@@ -46,12 +43,11 @@
       <article class="row">
         <div class="left-col">
           <div class="title-line">
-            <h2 class="conf-name"></h2>
+            <h2 class="conf-name"><a class="conf-name-link"></a></h2>
             <a class="conf-link" target="_blank" rel="noreferrer" aria-label="Conference website">🌐</a>
           </div>
           <p class="event-line"></p>
           <p class="full-name"></p>
-          <p class="description"></p>
           <div class="categories"></div>
         </div>
 

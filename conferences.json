@@ -6,7 +6,13 @@
     "description": "Premier venue for design research, methods, practice, and design-led social change. Good fit for reflective design research, methodology, and design theory papers.",
     "categories": ["Design"],
     "website": "https://www.designresearchsociety.org/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "DRS 2026",
+      "startDate": "2026-06-08",
+      "endDate": "2026-06-12",
+      "location": "Edinburgh, United Kingdom",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Full Papers",
@@ -30,7 +36,7 @@
       "name": "MXR 2026",
       "startDate": "2026-05-30",
       "endDate": "2026-05-31",
-      "location": "University of Oregon, Portland, OR, USA (hybrid)",
+      "location": "Portland, OR, USA (hybrid)",
       "confirmed": true
     },
     "submissions": [
@@ -52,7 +58,13 @@
     "description": "Flagship venue for learning sciences and CSCL research. Good fit for empirical studies of learning, collaboration, technology-mediated education, and learning analytics.",
     "categories": ["Education", "Learning Sciences"],
     "website": "https://www.isls.org/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "ISLS 2026",
+      "startDate": "2026-06-15",
+      "endDate": "2026-06-19",
+      "location": "Irvine, CA, USA",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Research Papers",
@@ -72,7 +84,13 @@
     "description": "Largest education research conference in the world. Good fit for theoretical, methodological, and empirical education research across K-12, higher ed, and policy.",
     "categories": ["Education"],
     "website": "https://www.aera.net/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "AERA 2026",
+      "startDate": "2026-04-08",
+      "endDate": "2026-04-12",
+      "location": "Los Angeles, CA, USA",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Paper Submissions",
@@ -92,7 +110,13 @@
     "description": "Top-tier HCI venue. Good fit for rigorous empirical, systems, theory, and design papers on human-computer interaction.",
     "categories": ["HCI"],
     "website": "https://chi2027.acm.org/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "CHI 2027",
+      "startDate": "2027-05-10",
+      "endDate": "2027-05-14",
+      "location": "Pittsburgh, PA, USA",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Papers",
@@ -112,7 +136,13 @@
     "description": "HCI + design venue. Good fit for research-through-design, speculative design, and design-oriented HCI papers.",
     "categories": ["HCI", "Design"],
     "website": "https://dis.acm.org/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "DIS 2026",
+      "startDate": "2026-06-13",
+      "endDate": "2026-06-17",
+      "location": "Singapore",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Papers",
@@ -171,7 +201,7 @@
       "name": "AIED 2026",
       "startDate": "2026-06-27",
       "endDate": "2026-07-03",
-      "location": "Coex Center, Seoul, Republic of Korea",
+      "location": "Seoul, Republic of Korea",
       "confirmed": true
     },
     "submissions": [
@@ -207,7 +237,13 @@
     "description": "Focused on large-scale learning environments (MOOCs, intelligent tutors, online courses). Good fit for data-driven studies of learning at scale.",
     "categories": ["Education", "HCI"],
     "website": "https://learningatscale.acm.org/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "L@S 2026",
+      "startDate": "2026-06-29",
+      "endDate": "2026-07-03",
+      "location": "Seoul, Republic of Korea (Festival of Learning)",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Papers",
@@ -262,7 +298,13 @@
     "description": "Premier AR/MR venue. Good fit for tracking, displays, rendering, perception, and applications of mixed/augmented reality.",
     "categories": ["XR"],
     "website": "https://www.ieeeismar.net/2026/",
-    "upcomingEvent": null,
+    "upcomingEvent": {
+      "name": "ISMAR 2026",
+      "startDate": "2026-10-05",
+      "endDate": "2026-10-09",
+      "location": "Bari, Italy",
+      "confirmed": true
+    },
     "submissions": [
       {
         "track": "Papers",
@@ -286,7 +328,7 @@
       "name": "VRST 2026",
       "startDate": "2026-11-16",
       "endDate": "2026-11-18",
-      "location": "Research Institute of Electrical Communication, Tohoku University, Sendai, Japan",
+      "location": "Sendai, Japan",
       "confirmed": true
     },
     "submissions": [

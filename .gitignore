@@ -1,0 +1,8 @@
+.DS_Store
+
+deadlines-report.md
+deadlines-report.json
+
+__pycache__/
+*.pyc
+.venv/
